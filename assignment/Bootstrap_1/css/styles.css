@@ -27,6 +27,13 @@
     background-color: #512DA8;
 }
 
+.tab-content {
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    padding: 10px;
+}
+
 address {
     font-size: 80%;
     margin: 0px;
