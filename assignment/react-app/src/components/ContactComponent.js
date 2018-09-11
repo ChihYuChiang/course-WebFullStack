@@ -56,6 +56,8 @@ class Contact extends Component {
         return errors;
     }
     
+    //... is ** in python
+    //This function return a function, so can be hooked as a handler, similar to partial in python
     handleBlur = (field) => (evt) => {
         this.setState({
           touched: { ...this.state.touched, [field]: true },
