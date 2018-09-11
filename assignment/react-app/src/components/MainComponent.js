@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Menu from './MenuComponent';
+import DishDetail from './DishdetailComponent'
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
-import DishDetail from './DishdetailComponent'
+import About from './AboutComponent';
 
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
@@ -48,18 +48,19 @@ class Main extends Component {
       );
     };
 
-    return (
-        <React.Fragment>
-            <Header />
-            <Switch>
-              <Route path='/home' component={HomePage} />
-              <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
-              <Route exact path='/contactus' component={Contact} />} />
-              <Route path='/menu/:dishId' component={DishWithId} />
-              <Redirect to="/home" />
-          </Switch>
-            <Footer />
-        </React.Fragment>
+    return( 
+      <React.Fragment>
+        <Header />
+        <Switch>
+          <Route path="/home" component={HomePage} />
+          <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
+          <Route path="/menu/:dishId" component={DishWithId} />
+          <Route exact path="/contactus" component={Contact} /> />
+          <Route exact path="/aboutus" component={() => <About leaders={this.state.leaders} />} />
+          <Redirect to="/home" />
+        </Switch>
+        <Footer />
+      </React.Fragment>
     );
   }
 }
