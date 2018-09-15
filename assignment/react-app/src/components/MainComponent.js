@@ -69,8 +69,8 @@ class Main extends Component {
       <div>
         <Header />
         <div>
-
-            <CSSTransition classNames="page" timeout={300}>
+        <TransitionGroup>
+            <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
               <Switch location={this.props.location}>
                   <Route path='/home' component={HomePage} />
                   <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />} />
@@ -80,7 +80,7 @@ class Main extends Component {
                   <Redirect to="/home" />
               </Switch>
             </CSSTransition>
-
+          </TransitionGroup>
         </div>
         <Footer />
       </div>
