@@ -6,6 +6,7 @@ import About from "./AboutComponent";
 import Contact from "./ContactComponent";
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
+import Login from './LoginComponent';
 import {
   View,
   Platform,
