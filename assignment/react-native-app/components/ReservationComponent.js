@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, View, StyleSheet, Picker, Switch, Button, Alert, Modal } from 'react-native';
 import { Card } from 'react-native-elements';
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, Calendar } from 'expo';
 import DatePicker from 'react-native-datepicker'
 import * as Animatable from 'react-native-animatable';
 
@@ -28,6 +28,17 @@ class Reservation extends Component {
         return permission;
     }
 
+    async obtainCalendarPermission() {
+        let permission = await Permissions.getAsync(Permissions.CALENDAR);
+        if (permission.status !== 'granted') {
+            permission = await Permissions.askAsync(Permissions.CALENDAR);
+            if (permission.status !== 'granted') {
+                Alert.alert('Permission not granted to use calender');
+            }
+        }
+        return permission;
+    }
+
     async presentLocalNotification(date) {
         await this.obtainNotificationPermission();
         Notifications.presentLocalNotificationAsync({
@@ -41,6 +52,17 @@ class Reservation extends Component {
                 vibrate: true,
                 color: '#512DA8'
             }
+        });
+    }
+
+    async addReservationToCalendar(date) {
+        await this.obtainCalendarPermission();
+        Calendar.createEventAsync(Calendar.DEFAULT, {
+            title: 'Con Fusion Table Reservation',
+            startDate: Date(Date.parse(date)),
+            endDate: Date(Date.parse(date) + (2*60*60*1000)), //Add 2 hours
+            timeZone: 'Asia/Hong_Kong',
+            location: '121, Clear Water Bay Road, Clear Water Bay, Kowloon, Hong Kong'
         });
     }
 
@@ -60,6 +82,7 @@ class Reservation extends Component {
             [
             {text: 'Cancel', onPress: () => this.resetForm(), style: 'cancel'},
             {text: 'OK', onPress: () => {
+                this.addReservationToCalendar(this.state.date);
                 this.presentLocalNotification(this.state.date);
                 this.resetForm();
             }}
